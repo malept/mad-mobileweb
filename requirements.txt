@@ -1,0 +1,5 @@
+django >= 1.3beta1
+# django-html5
+git://github.com/malept/django-html5.git
+# webassets
+git://github.com/miracle2k/webassets.git
