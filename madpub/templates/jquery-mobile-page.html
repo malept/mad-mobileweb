@@ -1,0 +1,13 @@
+<div id="{{ id }}" data-role="page">{# vim: set ft=htmldjango ts=2 sts=2 sw=2 et ai : #}
+  <header data-role="header" data-position="fixed">
+    {% block page_header %}
+    <h1>{% blocktrans %}Mobile Assessment of Damage{% endblocktrans %}</h1>
+    {% endblock %}
+  </header>
+  <div id="content" data-role="content">
+    {% block content %}{% endblock %}
+  </div>
+  <footer data-role="footer" data-position="fixed">
+    {% block page_footer %}{% blocktrans %}Copyright &#169; 2010, 2011{% endblocktrans %} <a href="https://malept.com/">Mark Lee</a> (Some Rights Reserved){% endblock %}
+  </footer>
+</div>{# end of page #}

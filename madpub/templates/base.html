@@ -1,0 +1,84 @@
+<!DOCTYPE html>{# vim: set ft=htmldjango ts=2 sts=2 sw=2 et ai : #}
+{# paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ #}
+<!--[if lt IE 7]><html lang="en" class="no-js ie6"><![endif]-->
+<!--[if IE 7]><html lang="en" class="no-js ie7"><![endif]-->
+<!--[if IE 8]><html lang="en" class="no-js ie8"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]-->
+{% load assets %}
+{% load i18n %}
+<head>
+  <title>{% block head_title %}{% blocktrans %}Mobile Assessment of Damage{% endblocktrans %}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{% endblock %}" />
+  <meta name="keywords" content="{% block meta_keywords %}{% endblock %}" />
+  <meta name="author" content="Mark Lee" />
+  {# Mobile viewport optimized: j.mp/bplateviewport #}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" />
+  <link rel="apple-touch-icon" href="{{ STATIC_URL }}apple-touch-icon.png" />
+
+  {# CSS : implied media="all" #}
+  {% assets filter="cssutils" output="css/gen/style.css", "css/reset.css", "css/base.css", "css/helpers.css", "css/main.css", "css/jquerytools-dateinput.css", "css/media-queries.css", "css/print.css" %}
+  <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />
+  {% endassets %}
+  {#<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css" />#}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/libs/jquery.mobile-1.0a2.min.css" />
+
+  {# All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects #}
+  <script src="{{ STATIC_URL }}js/libs/modernizr-1.6.min.js"></script>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  {% block body %}
+  <div id="container" data-role="page">
+    <header data-role="header" data-position="fixed">
+      {% block page_header %}
+      <h1>{% blocktrans %}Mobile Assessment of Damage{% endblocktrans %}</h1>
+      {% endblock %}
+    </header>
+    <div id="content" data-role="content">
+      {% block content %}{% endblock %}
+    </div>
+    <footer data-role="footer" data-position="fixed">
+      {% block page_footer %}{% blocktrans %}Copyright &#169; 2010{% endblocktrans %} <a href="https://malept.com/">Mark Lee</a> (Some Rights Reserved){% endblock %}
+    </footer>
+  </div>{# end of #container #}
+  {% endblock body %}
+
+  {# Javascript at the bottom for fast page loading #}
+  {# Grab Google CDN's jQuery. fall back to local if necessary #}
+  {#<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>#}
+  <script>/*<![CDATA[*/!window.jQuery && document.write(unescape('%3Cscript src="{{ STATIC_URL|escapejs }}js/libs/jquery-1.4.4.js"%3E%3C/script%3E'))/*]]>*/</script>
+  {#<script src="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.js"></script>#}
+  <script src="{{ STATIC_URL|escape }}js/libs/jquery.mobile-1.0a2.js"></script>
+  {#<script src="http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js"></script>#}
+  <script src="{{ STATIC_URL|escape }}js/libs/jquery.tools-1.2.5.form.min.js"></script>
+
+  {% block script_dependencies %}{% endblock %}
+
+  {# scripts concatenated and minified via webassets #}
+  {% assets filter="closure_js", output="js/gen/script.js", "js/html5forms.js", "js/forms.js" %}
+  <script src="{{ ASSET_URL }}" type="text/javascript"></script>
+  {% endassets %}
+  {# end concatenated and minified scripts #}
+
+  {% block foot %}{% endblock %}
+
+  <!--[if lt IE 7]>{# fix any <img> or .png_bg background-images #}
+  <script>$.getScript('{{ STATIC_URL|escapejs }}js/libs/dd_belatedpng.js',function(){DD_belatedPNG.fix('img, .png_bg');});</script>
+  <![endif]-->
+
+  {% comment %}{# asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet #}
+  {# change the UA-XXXXX-X to be your site's ID #}
+  <script>
+   var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
+   (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+   })(document, 'script');
+  </script>
+  {# end analytics #}{% endcomment %}
+</body>
+</html>

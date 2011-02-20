@@ -1,0 +1,7 @@
+{% extends "base.html" %}{# vim: set ft=htmldjango ts=2 sts=2 sw=2 et ai : #}
+{% load i18n %}
+
+{% block content %}
+<p>Your information has been submitted. Here is your ticket number, for future reference:</p>
+<p style="font-size: larger" id="ticket-number">{{ ticket_number }}</p>
+{% endblock %}
